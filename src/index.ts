@@ -4,6 +4,8 @@ import * as dotenv from 'dotenv';
 import { connectMongoDB } from '@src/shared/mongoDB';
 import { errorHandler } from '@src/middlewares/errorHandler.middleware';
 import { AuthMiddleware } from '@src/middlewares/auth.middleware';
+
+import { TaskRouter } from '@src/modules/task/task.router';
 import { WorkspaceRouter } from './modules/workspace/workspace.router';
 
 dotenv.config();
@@ -21,6 +23,7 @@ app.use(errorHandler);
 async function main() {
   await connectMongoDB();
 
+  app.use('/api/task', AuthMiddleware(), TaskRouter);
   app.use('/api/workspace', AuthMiddleware(), WorkspaceRouter);
 
   app.listen(PORT, () => {
