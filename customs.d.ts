@@ -1,8 +1,13 @@
 declare namespace Express {
   export interface Request {
-    user?: import('./src/utils/jwt-tokens').TAccessTokenPayload;
+    auth?: any;
+    user?: any;
+    userId?: string;
   }
+
   export interface Response {
-    user?: import('./src/utils/jwt-tokens').TAccessTokenPayload;
+    user?: any;
+    auth?: any;
+    userId?: string;
   }
 }

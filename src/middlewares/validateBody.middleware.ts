@@ -2,7 +2,7 @@ import { validate } from 'class-validator';
 import { plainToClass } from 'class-transformer';
 import { Request, Response, NextFunction } from 'express';
 
-export function ValidateBody<T>(
+export function validateBody<T>(
   type: new () => T,
 ): (req: Request, res: Response, next: NextFunction) => void {
   return (req: Request, res: Response, next: NextFunction) => {
