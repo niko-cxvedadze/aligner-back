@@ -23,7 +23,11 @@ const TaskSchema = new Schema<ITask>(
 );
 
 TaskSchema.pre('save', async function (next) {
-  await getWorkspaceByIdService(this.workspaceId, this.ownerId);
+  await getWorkspaceByIdService({
+    workspaceId: this.workspaceId,
+    ownerId: this.ownerId,
+  });
+
   next();
 });
 
