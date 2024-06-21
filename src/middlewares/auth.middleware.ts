@@ -10,8 +10,13 @@ export function AuthMiddleware() {
         return next(error);
       }
 
-      req.user = req.auth.sessionClaims.user;
-      req.userId = req.auth.sessionClaims.user.user_id;
+      try {
+        req.user = req.auth.sessionClaims?.user;
+        req.userId = req.auth.sessionClaims?.user?.user_id;
+      } catch (error) {
+        return next(error);
+      }
+
       next();
     });
   };
