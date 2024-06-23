@@ -7,6 +7,9 @@ export class CreateTaskDto {
   @IsString({ message: 'Status must be a string' })
   status: string;
 
+  @IsString({ message: 'Priority must be a string' })
+  priority: string;
+
   @IsString({ message: 'Description must be a string' })
   description: string;
 

@@ -18,7 +18,6 @@ export async function getWorkspaceService(ownerId: string) {
     const workspace = await createWorkspaceService({
       name: 'General',
       ownerId,
-      tasks: [],
       default: true,
     });
 
@@ -54,7 +53,7 @@ export async function deleteWorkspaceService(props: {
     throw new Error('Cannot delete default workspace');
   }
 
-  await workspace.deleteOne();
+  await Workspace.findOneAndDelete({ _id: props.workspaceId });
   return workspace;
 }
 

@@ -5,3 +5,7 @@ export function createTaskService(data: ITask) {
   const task = new Task(data);
   return task.save();
 }
+
+export function getTasksService(workspaceId: string) {
+  return Task.find({ workspaceId });
+}

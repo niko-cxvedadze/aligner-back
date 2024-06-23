@@ -1,20 +1,20 @@
 import { Schema, model } from 'mongoose';
-import { getWorkspaceByIdService } from '@src/modules/workspace/workspace.service';
+import { Workspace } from '@src/modules/workspace/workspace.entity';
 
 export interface ITask {
   name: string;
   status: string;
+  priority: string;
   description: string;
-  ownerId: string;
   workspaceId: Schema.Types.ObjectId;
 }
 
 const TaskSchema = new Schema<ITask>(
   {
     name: { type: String, required: true },
-    status: { type: String, required: true },
     description: { type: String, required: true },
-    ownerId: { type: String, required: true },
+    status: { type: String, required: true, default: 'todo' },
+    priority: { type: String, required: true, default: 'medium' },
     workspaceId: { type: Schema.Types.ObjectId, ref: 'workspace' },
   },
   {
@@ -23,11 +23,10 @@ const TaskSchema = new Schema<ITask>(
 );
 
 TaskSchema.pre('save', async function (next) {
-  await getWorkspaceByIdService({
-    workspaceId: this.workspaceId,
-    ownerId: this.ownerId,
-  });
-
+  const workspace = await Workspace.findById(this.workspaceId);
+  if (!workspace) {
+    throw new Error('Workspace not found');
+  }
   next();
 });
 
