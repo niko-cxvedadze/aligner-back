@@ -3,12 +3,29 @@ import { Workspace } from '@src/modules/workspace/workspace.entity';
 import { IWorkspace } from '@src/modules/workspace/workspace.entity';
 
 export function createWorkspaceService(body: IWorkspace) {
-  const workspace = new Workspace({ name: body.name, ownerId: body.ownerId });
+  const workspace = new Workspace({
+    name: body.name,
+    ownerId: body.ownerId,
+    default: Boolean(body.default),
+  });
   return workspace.save();
 }
 
-export function getWorkspaceService(ownerId: string) {
-  return Workspace.find({ ownerId });
+export async function getWorkspaceService(ownerId: string) {
+  const workspaces = await Workspace.find({ ownerId });
+
+  if (workspaces.length === 0) {
+    const workspace = await createWorkspaceService({
+      name: 'General',
+      ownerId,
+      tasks: [],
+      default: true,
+    });
+
+    return [workspace];
+  }
+
+  return workspaces;
 }
 
 export async function getWorkspaceByIdService(props: {
@@ -32,6 +49,11 @@ export async function deleteWorkspaceService(props: {
   ownerId: string;
 }) {
   const workspace = await getWorkspaceByIdService(props);
+
+  if (workspace.default === true) {
+    throw new Error('Cannot delete default workspace');
+  }
+
   await workspace.deleteOne();
   return workspace;
 }
