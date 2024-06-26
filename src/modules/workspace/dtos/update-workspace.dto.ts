@@ -4,4 +4,8 @@ export class UpdateWorkspaceDto {
   @IsOptional()
   @IsString()
   name?: string;
+
+  @IsOptional()
+  @IsString()
+  color?: string;
 }

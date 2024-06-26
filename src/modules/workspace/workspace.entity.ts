@@ -3,6 +3,7 @@ import { Task } from '@src/modules/task/task.entity';
 
 export interface IWorkspace {
   name: string;
+  color?: string;
   ownerId: string;
   default?: Boolean;
 }
@@ -10,6 +11,7 @@ export interface IWorkspace {
 const WorkspaceSchema = new Schema<IWorkspace>(
   {
     name: { type: String, required: true },
+    color: { type: String, required: false },
     ownerId: { type: String, required: true },
     default: { type: Boolean, required: true, default: false },
   },

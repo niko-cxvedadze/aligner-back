@@ -7,6 +7,7 @@ export function createWorkspaceService(body: IWorkspace) {
     name: body.name,
     ownerId: body.ownerId,
     default: Boolean(body.default),
+    color: body?.color,
   });
   return workspace.save();
 }
