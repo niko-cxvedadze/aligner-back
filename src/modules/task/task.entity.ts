@@ -5,16 +5,16 @@ export interface ITask {
   name: string;
   status: string;
   priority: string;
-  description: string;
+  description?: string;
   workspaceId: Schema.Types.ObjectId;
 }
 
 const TaskSchema = new Schema<ITask>(
   {
     name: { type: String, required: true },
-    description: { type: String, required: true },
+    description: { type: String, required: false, default: '' },
     status: { type: String, required: true, default: 'todo' },
-    priority: { type: String, required: true, default: 'medium' },
+    priority: { type: String, required: true, default: 'no-priority' },
     workspaceId: { type: Schema.Types.ObjectId, ref: 'workspace' },
   },
   {
