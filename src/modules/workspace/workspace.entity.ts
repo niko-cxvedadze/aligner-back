@@ -11,7 +11,7 @@ export interface IWorkspace {
 const WorkspaceSchema = new Schema<IWorkspace>(
   {
     name: { type: String, required: true },
-    color: { type: String, required: false },
+    color: { type: String, required: false, default: null },
     ownerId: { type: String, required: true },
     default: { type: Boolean, required: true, default: false },
   },

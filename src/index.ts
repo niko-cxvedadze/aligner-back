@@ -6,6 +6,7 @@ import { errorHandler } from '@src/middlewares/errorHandler.middleware';
 import { AuthMiddleware } from '@src/middlewares/auth.middleware';
 
 import { TaskRouter } from '@src/modules/task/task.router';
+import { BookmarkRouter } from '@src/modules/bookmark/bookmark.router';
 import { WorkspaceRouter } from './modules/workspace/workspace.router';
 
 dotenv.config();
@@ -25,6 +26,7 @@ async function main() {
 
   app.use('/api/task', AuthMiddleware(), TaskRouter);
   app.use('/api/workspace', AuthMiddleware(), WorkspaceRouter);
+  app.use('/api/bookmark', AuthMiddleware(), BookmarkRouter);
 
   app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);

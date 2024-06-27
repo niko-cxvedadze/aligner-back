@@ -12,7 +12,7 @@ export interface ITask {
 const TaskSchema = new Schema<ITask>(
   {
     name: { type: String, required: true },
-    description: { type: String, required: false, default: '' },
+    description: { type: String, required: false, default: null },
     status: { type: String, required: true, default: 'todo' },
     priority: { type: String, required: true, default: 'no-priority' },
     workspaceId: { type: Schema.Types.ObjectId, ref: 'workspace' },
