@@ -1,5 +1,5 @@
-import { Bookmark, IBookmark } from './bookmark.entity';
 import { FilterQuery } from 'mongoose';
+import { Bookmark, IBookmark } from './bookmark.entity';
 import { TGetBookmarksQuery } from './dtos/get-bookmarks.dto';
 import { TCreateBookmarkBody } from './dtos/create-bookmark.dto';
 import { TUpdateBookmarkBody } from './dtos/update-bookmark.dto';
