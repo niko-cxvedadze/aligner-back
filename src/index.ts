@@ -8,6 +8,7 @@ import { AuthMiddleware } from '@src/middlewares/auth.middleware';
 import { TaskRouter } from '@src/modules/task/task.router';
 import { BookmarkRouter } from '@src/modules/bookmark/bookmark.router';
 import { WorkspaceRouter } from './modules/workspace/workspace.router';
+import { BookmarkTopicRouter } from './modules/bookmarkTopic/bookmarkTopic.router';
 
 dotenv.config();
 const PORT: number = parseInt(process.env['PORT'] as string, 10);
@@ -27,6 +28,7 @@ async function main() {
   app.use('/api/task', AuthMiddleware(), TaskRouter);
   app.use('/api/workspace', AuthMiddleware(), WorkspaceRouter);
   app.use('/api/bookmark', AuthMiddleware(), BookmarkRouter);
+  app.use('/api/bookmark-topic', AuthMiddleware(), BookmarkTopicRouter);
 
   app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
