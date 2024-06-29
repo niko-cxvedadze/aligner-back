@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import { Bookmark } from '../bookmark/bookmark.entity';
+import { Workspace } from '../workspace/workspace.entity';
 
 export interface IBookmarkTopic {
   title: string;
@@ -17,6 +18,14 @@ const BookmarkTopicSchema = new Schema<IBookmarkTopic>(
   },
   { versionKey: false },
 );
+
+BookmarkTopicSchema.pre('save', async function (next) {
+  const workspace = await Workspace.findById(this.workspaceId);
+  if (!workspace) {
+    throw new Error('Workspace not found');
+  }
+  next();
+});
 
 BookmarkTopicSchema.post('findOneAndDelete', async (doc, next) => {
   await Promise.all([Bookmark.deleteMany({ topicId: doc._id })]);

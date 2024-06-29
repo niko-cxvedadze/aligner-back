@@ -57,14 +57,15 @@ export async function deleteWorkspaceService(props: {
   workspaceId: string;
   ownerId: string;
 }) {
-  const workspace = await getWorkspaceByIdService(props);
+  const deletedWorkspace = await Workspace.findOneAndDelete({
+    _id: props.workspaceId,
+  });
 
-  if (workspace.default === true) {
-    throw new Error('Cannot delete default workspace');
+  if (!deletedWorkspace) {
+    throw new Error('Workspace not found');
   }
 
-  await Workspace.findOneAndDelete({ _id: props.workspaceId });
-  return workspace;
+  return deletedWorkspace;
 }
 
 export async function updateWorkspaceService({

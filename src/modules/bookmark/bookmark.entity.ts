@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { Workspace } from '../workspace/workspace.entity';
 
 export interface IBookmark {
   title: string;
@@ -25,5 +26,13 @@ const BookmarkSchema = new Schema<IBookmark>(
   },
   { versionKey: false },
 );
+
+BookmarkSchema.pre('save', async function (next) {
+  const workspace = await Workspace.findById(this.workspaceId);
+  if (!workspace) {
+    throw new Error('Workspace not found');
+  }
+  next();
+});
 
 export const Bookmark = model('bookmark', BookmarkSchema);

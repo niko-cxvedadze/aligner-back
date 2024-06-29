@@ -36,9 +36,12 @@ export async function getBookmarkByIdService(bookmarkId: string) {
 }
 
 export async function deleteBookmarkService(bookmarkId: string) {
-  const bookmark = await getBookmarkByIdService(bookmarkId);
-  await Bookmark.findByIdAndDelete(bookmarkId);
-  return bookmark;
+  const deletedBookmark = await Bookmark.findOneAndDelete({ _id: bookmarkId });
+
+  if (!deletedBookmark) {
+    throw new Error('Bookmark not found');
+  }
+  return deletedBookmark;
 }
 
 export async function updateBookmarkService(
