@@ -11,8 +11,17 @@ const BookmarkSchema = new Schema<IBookmark>(
   {
     title: { type: String, required: true },
     url: { type: String, required: true },
-    topicId: { type: Schema.Types.ObjectId, required: false, default: null },
-    workspaceId: { type: Schema.Types.ObjectId, required: true },
+    topicId: {
+      type: Schema.Types.ObjectId,
+      default: null,
+      required: false,
+      ref: 'bookmarkTopic',
+    },
+    workspaceId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: 'workspace',
+    },
   },
   { versionKey: false },
 );
