@@ -76,13 +76,22 @@ export async function updateWorkspaceService({
   workspaceId: string;
   updateData: TUpdateWorkspaceBodyDto;
 }) {
-  const workspace = await getWorkspaceByIdService({ workspaceId, ownerId });
-
-  const updatedWorkspace = await Workspace.findByIdAndUpdate(
-    workspace._id,
-    { $set: updateData },
-    { new: true },
+  const updatedWorkspace = await Workspace.findOneAndUpdate(
+    {
+      _id: workspaceId,
+      ownerId,
+    },
+    {
+      $set: updateData,
+    },
+    {
+      new: true,
+    },
   );
+
+  if (!updatedWorkspace) {
+    throw new Error('Workspace not found');
+  }
 
   return updatedWorkspace;
 }
