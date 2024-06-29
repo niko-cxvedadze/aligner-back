@@ -22,12 +22,14 @@ export async function getBookmarkTopicByIdService(bookmarkTopicId: string) {
 }
 
 export async function deleteBookmarkTopicService(bookmarkTopicId: string) {
-  const deletedBookmarkTopic = await BookmarkTopic.findByIdAndDelete(
-    bookmarkTopicId,
-  );
+  const deletedBookmarkTopic = await BookmarkTopic.findOneAndDelete({
+    _id: bookmarkTopicId,
+  });
+
   if (!deletedBookmarkTopic) {
     throw new Error('BookmarkTopic not found');
   }
+
   return deletedBookmarkTopic;
 }
 

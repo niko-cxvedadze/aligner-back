@@ -1,4 +1,5 @@
 import { Schema, model } from 'mongoose';
+import { Bookmark } from '../bookmark/bookmark.entity';
 
 export interface IBookmarkTopic {
   title: string;
@@ -16,5 +17,10 @@ const BookmarkTopicSchema = new Schema<IBookmarkTopic>(
   },
   { versionKey: false },
 );
+
+BookmarkTopicSchema.post('findOneAndDelete', async (doc, next) => {
+  await Promise.all([Bookmark.deleteMany({ topicId: doc._id })]);
+  next();
+});
 
 export const BookmarkTopic = model('bookmarkTopic', BookmarkTopicSchema);

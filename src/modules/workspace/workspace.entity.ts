@@ -1,5 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { Task } from '@src/modules/task/task.entity';
+import { Bookmark } from '../bookmark/bookmark.entity';
+import { BookmarkTopic } from '../bookmarkTopic/bookmarkTopic.entity';
 
 export interface IWorkspace {
   name: string;
@@ -19,7 +21,12 @@ const WorkspaceSchema = new Schema<IWorkspace>(
 );
 
 WorkspaceSchema.post('findOneAndDelete', async (doc, next) => {
-  await Task.deleteMany({ workspaceId: doc._id });
+  await Promise.all([
+    Task.deleteMany({ workspaceId: doc._id }),
+    Bookmark.deleteMany({ workspaceId: doc._id }),
+    BookmarkTopic.deleteMany({ workspaceId: doc._id }),
+  ]);
+
   next();
 });
 
