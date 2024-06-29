@@ -10,9 +10,8 @@ class WorkspaceController {
   async createWorkspace(req: Request, res: Response) {
     try {
       const workspace = await createWorkspaceService({
-        name: req.body.name,
         ownerId: req.userId!,
-        color: req.body.color,
+        body: { name: req.body.name, color: req.body.color },
       });
       res.status(201).json(workspace);
     } catch (error) {

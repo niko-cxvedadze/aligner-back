@@ -1,13 +1,22 @@
 import { Schema } from 'mongoose';
 import { Workspace } from '@src/modules/workspace/workspace.entity';
-import { IWorkspace } from '@src/modules/workspace/workspace.entity';
+import { TCreateWorkspaceBody } from './dtos/create-workspace.dto';
+import { TUpdateWorkspaceBodyDto } from './dtos/update-workspace.dto';
 
-export function createWorkspaceService(body: IWorkspace) {
+export function createWorkspaceService({
+  body,
+  ownerId,
+  default: defaultWorkspace = false,
+}: {
+  ownerId: string;
+  default?: boolean;
+  body: TCreateWorkspaceBody;
+}) {
   const workspace = new Workspace({
     name: body.name,
-    ownerId: body.ownerId,
-    default: Boolean(body.default),
+    ownerId: ownerId,
     color: body?.color,
+    default: defaultWorkspace,
   });
   return workspace.save();
 }
@@ -17,7 +26,7 @@ export async function getWorkspaceService(ownerId: string) {
 
   if (workspaces.length === 0) {
     const workspace = await createWorkspaceService({
-      name: 'General',
+      body: { name: 'General' },
       ownerId,
       default: true,
     });
@@ -58,14 +67,19 @@ export async function deleteWorkspaceService(props: {
   return workspace;
 }
 
-export async function updateWorkspaceService(props: {
+export async function updateWorkspaceService({
+  ownerId,
+  updateData,
+  workspaceId,
+}: {
   ownerId: string;
   workspaceId: string;
-  updateData: any;
+  updateData: TUpdateWorkspaceBodyDto;
 }) {
-  const updatedWorkspace = await Workspace.findByIdAndUpdate(
-    props.workspaceId,
-    { $set: props.updateData },
+  const workspace = await getWorkspaceByIdService({ workspaceId, ownerId });
+
+  const updatedWorkspace = await workspace.updateOne(
+    { $set: updateData },
     { new: true },
   );
 

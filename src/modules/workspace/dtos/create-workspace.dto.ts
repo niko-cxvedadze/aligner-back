@@ -6,7 +6,7 @@ export class CreateWorkspaceBodyDto {
 
   @IsOptional()
   @IsString({ message: 'Color must be a string' })
-  color: string;
+  color?: string;
 }
 
 export type TCreateWorkspaceBody = InstanceType<typeof CreateWorkspaceBodyDto>;
