@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import BookmarkController from './bookmark.controller';
 import { CreateBookmarkBodyDto } from './dtos/create-bookmark.dto';
+import { UpdateBookmarkBodyDto } from './dtos/update-bookmark.dto';
 import { GetBookmarksQueryDto } from './dtos/get-bookmarks.dto';
 import {
   validateBody,
@@ -21,6 +22,12 @@ BookmarkRouter.post(
   '/',
   validateBody(CreateBookmarkBodyDto),
   BookmarkController.createBookmark,
+);
+
+BookmarkRouter.put(
+  '/:bookmarkId',
+  validateBody(UpdateBookmarkBodyDto),
+  BookmarkController.updateBookmark,
 );
 
 BookmarkRouter.delete('/:bookmarkId', BookmarkController.deleteBookmark);

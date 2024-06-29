@@ -1,9 +1,7 @@
 import { IsMongoId, IsOptional, IsString } from 'class-validator';
 
 export class UpdateBookmarkBodyDto {
-  @IsMongoId()
-  bookmarkId: string;
-
+  @IsOptional()
   @IsMongoId()
   topicId?: string;
 

@@ -78,7 +78,8 @@ export async function updateWorkspaceService({
 }) {
   const workspace = await getWorkspaceByIdService({ workspaceId, ownerId });
 
-  const updatedWorkspace = await workspace.updateOne(
+  const updatedWorkspace = await Workspace.findByIdAndUpdate(
+    workspace._id,
     { $set: updateData },
     { new: true },
   );
