@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-export class CreateTaskDto {
+export class CreateTaskBodyDto {
   @IsString({ message: 'Name must be a string' })
   name: string;
 
@@ -16,3 +16,5 @@ export class CreateTaskDto {
   @IsString({ message: 'WorkspaceId must be a string' })
   workspaceId: string;
 }
+
+export type TCreateTaskBody = InstanceType<typeof CreateTaskBodyDto>;

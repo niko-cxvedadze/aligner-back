@@ -1,6 +1,6 @@
 import { Bookmark, IBookmark } from './bookmark.entity';
 import { FilterQuery } from 'mongoose';
-import { TGetBookmarksQuery } from './dtos/get-bookmarks';
+import { TGetBookmarksQuery } from './dtos/get-bookmarks.dto';
 import { TCreateBookmarkBody } from './dtos/create-bookmark.dto';
 
 export function createBookmarkService(body: TCreateBookmarkBody) {

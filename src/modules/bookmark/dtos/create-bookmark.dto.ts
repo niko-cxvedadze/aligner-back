@@ -1,7 +1,7 @@
 import { Schema } from 'mongoose';
 import { IsString, IsUrl, IsMongoId, IsOptional } from 'class-validator';
 
-export class CreateBookmarkDto {
+export class CreateBookmarkBodyDto {
   @IsString()
   title: string;
 
@@ -16,4 +16,4 @@ export class CreateBookmarkDto {
   workspaceId: Schema.Types.ObjectId;
 }
 
-export type TCreateBookmarkBody = InstanceType<typeof CreateBookmarkDto>;
+export type TCreateBookmarkBody = InstanceType<typeof CreateBookmarkBodyDto>;

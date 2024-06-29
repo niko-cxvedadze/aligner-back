@@ -1,6 +1,6 @@
 import { IsMongoId, IsOptional } from 'class-validator';
 
-export class GetBookmarksDto {
+export class GetBookmarksQueryDto {
   @IsMongoId()
   workspaceId: string;
 
@@ -9,4 +9,4 @@ export class GetBookmarksDto {
   topicId?: string;
 }
 
-export type TGetBookmarksQuery = InstanceType<typeof GetBookmarksDto>;
+export type TGetBookmarksQuery = InstanceType<typeof GetBookmarksQueryDto>;

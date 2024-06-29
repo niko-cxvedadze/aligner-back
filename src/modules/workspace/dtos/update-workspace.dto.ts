@@ -1,6 +1,6 @@
 import { IsOptional, IsString } from 'class-validator';
 
-export class UpdateWorkspaceDto {
+export class UpdateWorkspaceBodyDto {
   @IsOptional()
   @IsString()
   name?: string;
@@ -9,3 +9,7 @@ export class UpdateWorkspaceDto {
   @IsString()
   color?: string;
 }
+
+export type TUpdateWorkspaceBodyDto = InstanceType<
+  typeof UpdateWorkspaceBodyDto
+>;

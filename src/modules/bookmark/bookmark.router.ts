@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import BookmarkController from './bookmark.controller';
-import { CreateBookmarkDto } from './dtos/create-bookmark.dto';
-import { GetBookmarksDto } from './dtos/get-bookmarks';
+import { CreateBookmarkBodyDto } from './dtos/create-bookmark.dto';
+import { GetBookmarksQueryDto } from './dtos/get-bookmarks.dto';
 import {
   validateBody,
   validateQS,
@@ -9,14 +9,18 @@ import {
 
 export const BookmarkRouter = Router();
 
+BookmarkRouter.get(
+  '/',
+  validateQS(GetBookmarksQueryDto),
+  BookmarkController.getBookmarks,
+);
+
+BookmarkRouter.get('/:bookmarkId', BookmarkController.getBookmarkById);
+
 BookmarkRouter.post(
   '/',
-  validateBody(CreateBookmarkDto),
+  validateBody(CreateBookmarkBodyDto),
   BookmarkController.createBookmark,
 );
 
-BookmarkRouter.get(
-  '/',
-  validateQS(GetBookmarksDto),
-  BookmarkController.getBookmarks,
-);
+BookmarkRouter.delete('/:bookmarkId', BookmarkController.deleteBookmark);

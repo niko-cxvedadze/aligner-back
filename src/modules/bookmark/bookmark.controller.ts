@@ -27,7 +27,16 @@ class BookmarkController {
 
   async deleteBookmark(req: Request, res: Response) {
     try {
-      const bookmark = await deleteBookmarkService(req.params.id);
+      const bookmark = await deleteBookmarkService(req.params.bookmarkId);
+      res.status(200).send(bookmark);
+    } catch (error) {
+      res.status(500).send({ message: error.message });
+    }
+  }
+
+  async getBookmarkById(req: Request, res: Response) {
+    try {
+      const bookmark = await getBookmarkByIdService(req.params.bookmarkId);
       res.status(200).send(bookmark);
     } catch (error) {
       res.status(500).send({ message: error.message });
