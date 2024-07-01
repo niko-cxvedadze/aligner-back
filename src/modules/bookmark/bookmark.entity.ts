@@ -24,7 +24,7 @@ const BookmarkSchema = new Schema<IBookmark>(
       ref: 'workspace',
     },
   },
-  { versionKey: false },
+  { versionKey: false, timestamps: true },
 );
 
 BookmarkSchema.pre('save', async function (next) {

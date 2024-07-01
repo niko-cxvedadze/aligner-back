@@ -17,7 +17,10 @@ const WorkspaceSchema = new Schema<IWorkspace>(
     ownerId: { type: String, required: true },
     default: { type: Boolean, required: true, default: false },
   },
-  { versionKey: false },
+  {
+    versionKey: false,
+    timestamps: true,
+  },
 );
 
 WorkspaceSchema.post('findOneAndDelete', async (doc, next) => {

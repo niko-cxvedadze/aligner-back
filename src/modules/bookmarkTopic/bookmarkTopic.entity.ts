@@ -16,7 +16,10 @@ const BookmarkTopicSchema = new Schema<IBookmarkTopic>(
       type: Schema.Types.ObjectId,
     },
   },
-  { versionKey: false },
+  {
+    versionKey: false,
+    timestamps: true,
+  },
 );
 
 BookmarkTopicSchema.pre('save', async function (next) {

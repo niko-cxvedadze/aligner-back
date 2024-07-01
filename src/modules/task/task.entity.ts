@@ -19,6 +19,7 @@ const TaskSchema = new Schema<ITask>(
   },
   {
     versionKey: false,
+    timestamps: true,
   },
 );
 
