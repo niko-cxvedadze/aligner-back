@@ -25,7 +25,10 @@ class TaskController {
 
   async getTasks(req: Request, res: Response) {
     try {
-      const tasks = await getTasksService(req.params.workspaceId);
+      const tasks = await getTasksService(
+        req.params.workspaceId,
+        req.query as any,
+      );
       res.status(200).json(tasks);
     } catch (error) {
       res.status(500).json({ error: error.message });
