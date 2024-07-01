@@ -8,7 +8,10 @@ export function createTaskService(data: TCreateTaskBody) {
   return task.save();
 }
 
-export function getTasksService(workspaceId: string, query: TGetTasksQuery) {
+export async function getTasksService(
+  workspaceId: string,
+  query: TGetTasksQuery,
+) {
   const queryBuilder = Task.find({ workspaceId });
 
   if (query.limit) {
@@ -18,7 +21,10 @@ export function getTasksService(workspaceId: string, query: TGetTasksQuery) {
     queryBuilder.skip(query.skip);
   }
 
-  return queryBuilder;
+  const tasks = await queryBuilder.exec();
+  const total = await Task.countDocuments({ workspaceId });
+
+  return { tasks, total };
 }
 
 export async function getTaskByIdService(taskId: string) {
