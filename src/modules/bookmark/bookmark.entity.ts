@@ -4,7 +4,7 @@ import { Workspace } from '../workspace/workspace.entity';
 export interface IBookmark {
   title: string;
   url: string;
-  topicId?: Schema.Types.ObjectId;
+  topic?: Schema.Types.ObjectId;
   workspaceId: Schema.Types.ObjectId;
 }
 
@@ -12,7 +12,7 @@ const BookmarkSchema = new Schema<IBookmark>(
   {
     title: { type: String, required: true },
     url: { type: String, required: true },
-    topicId: {
+    topic: {
       type: Schema.Types.ObjectId,
       default: null,
       required: false,

@@ -3,7 +3,7 @@ import { IsMongoId, IsOptional, IsString } from 'class-validator';
 export class UpdateBookmarkBodyDto {
   @IsOptional()
   @IsMongoId()
-  topicId?: string;
+  topic?: string;
 
   @IsOptional()
   @IsString()

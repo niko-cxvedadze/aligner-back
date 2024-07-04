@@ -10,7 +10,7 @@ export class CreateBookmarkBodyDto {
 
   @IsOptional()
   @IsMongoId()
-  topicId?: Schema.Types.ObjectId;
+  topic?: Schema.Types.ObjectId;
 
   @IsMongoId()
   workspaceId: Schema.Types.ObjectId;

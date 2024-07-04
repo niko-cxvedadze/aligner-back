@@ -24,7 +24,7 @@ export function getBookmarksService({
     filtersObject._and = filtersList;
   }
 
-  return Bookmark.find(filtersObject);
+  return Bookmark.find(filtersObject).populate('topic');
 }
 
 export async function getBookmarkByIdService(bookmarkId: string) {
