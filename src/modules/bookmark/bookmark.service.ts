@@ -15,11 +15,11 @@ export function getBookmarksService({
 }: TGetBookmarksQuery) {
   const filtersObject: FilterQuery<IBookmark> = {};
   let filtersList: FilterQuery<IBookmark>['$and'] = [
-    { workspaceId: { $eq: workspaceId } }, // Use $eq for equality
+    { workspaceId: { $eq: workspaceId } },
   ];
 
   if (topicId) {
-    filtersList.push({ topicId: { $eq: topicId } }); // Ensure to use $eq for equality
+    filtersList.push({ topicId: { $eq: topicId } });
   }
 
   if (filtersList.length > 0) {
