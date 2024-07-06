@@ -13,6 +13,7 @@ export async function getTasksService(
   query: TGetTasksQuery,
 ) {
   const queryBuilder = Task.find({ workspaceId });
+  const countQueryBuilder = Task.find({ workspaceId });
 
   if (query.limit) {
     queryBuilder.limit(query.limit);
@@ -21,8 +22,18 @@ export async function getTasksService(
     queryBuilder.skip(query.skip);
   }
 
+  if (query.status) {
+    queryBuilder.where('status').equals(query.status);
+    countQueryBuilder.where('status').equals(query.status);
+  }
+
+  if (query.priority) {
+    queryBuilder.where('priority').equals(query.priority);
+    countQueryBuilder.where('priority').equals(query.priority);
+  }
+
   const tasks = await queryBuilder.exec();
-  const total = await Task.countDocuments({ workspaceId });
+  const total = await countQueryBuilder.countDocuments();
 
   return { tasks, total };
 }
