@@ -14,15 +14,19 @@ export function getBookmarksService({
   topicId,
 }: TGetBookmarksQuery) {
   const filtersObject: FilterQuery<IBookmark> = {};
-  let filtersList: FilterQuery<IBookmark>['$and'] = [{ workspaceId }];
+  let filtersList: FilterQuery<IBookmark>['$and'] = [
+    { workspaceId: { $eq: workspaceId } }, // Use $eq for equality
+  ];
 
   if (topicId) {
-    filtersList.push({ topicId });
+    filtersList.push({ topicId: { $eq: topicId } }); // Ensure to use $eq for equality
   }
 
-  if (filtersList.length > 1) {
-    filtersObject._and = filtersList;
+  if (filtersList.length > 0) {
+    filtersObject.$and = filtersList;
   }
+
+  console.log(filtersObject);
 
   return Bookmark.find(filtersObject).populate('topic');
 }
