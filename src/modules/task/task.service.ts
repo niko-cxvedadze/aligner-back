@@ -22,14 +22,16 @@ export async function getTasksService(
     queryBuilder.skip(query.skip);
   }
 
-  if (query.status) {
-    queryBuilder.where('status').equals(query.status);
-    countQueryBuilder.where('status').equals(query.status);
+  if (query.statuses) {
+    const statuses = query.statuses.split(',');
+    queryBuilder.where('status').in(statuses);
+    countQueryBuilder.where('status').in(statuses);
   }
 
-  if (query.priority) {
-    queryBuilder.where('priority').equals(query.priority);
-    countQueryBuilder.where('priority').equals(query.priority);
+  if (query.priorities) {
+    const priorities = query.priorities.split(',');
+    queryBuilder.where('priority').in(priorities);
+    countQueryBuilder.where('priority').in(priorities);
   }
 
   const tasks = await queryBuilder.exec();

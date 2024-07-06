@@ -11,11 +11,11 @@ export class GetTasksQueryDto {
 
   @IsOptional()
   @IsString()
-  status?: string;
+  statuses?: string;
 
   @IsOptional()
   @IsString()
-  priority?: string;
+  priorities?: string;
 }
 
 export type TGetTasksQuery = InstanceType<typeof GetTasksQueryDto>;
