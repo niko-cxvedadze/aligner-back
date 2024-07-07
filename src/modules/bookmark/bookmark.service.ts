@@ -26,8 +26,6 @@ export function getBookmarksService({
     filtersObject.$and = filtersList;
   }
 
-  console.log(filtersObject);
-
   return Bookmark.find(filtersObject).populate('topic');
 }
 
